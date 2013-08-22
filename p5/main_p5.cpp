@@ -2,6 +2,7 @@
 #include <iostream>
 #include <limits.h>
 #include <set>
+#include <stack>
 #include <sstream>
 #include <string.h>
 
@@ -21,11 +22,11 @@ int Adj[SIZE][SIZE] = {
 	{NP, NP, NP, NP, NP,  0}
 };
 //Starting node
-int START = 1;
+int START = 0;
 //Cost MATRIX
 int Cost[SIZE] = {NP,NP,NP,NP,NP,NP};
 //Previous
-int  Prev[SIZE] = {UNDEF};
+int  Prev[SIZE] = {UNDEF,UNDEF,UNDEF,UNDEF,UNDEF,UNDEF};
 //Set
 set<int> s;
 
@@ -42,27 +43,27 @@ void print_initial_adj(){
 }
 //Used to print out D(cost) and P(prev)
 char* d_p_string(){
-	ostringstream s;
+	ostringstream ss;
 	for(int i=0;i<SIZE;i++){
-		if(i+1!=START){
+		if(i!=START){
 			if(Cost[i]==NP)
-				s<<"-\t\t";
+				ss<<"-\t\t";
 			else
-				s<<Cost[i]<<":"<<Prev[i]<<"\t\t";
+				ss<<Cost[i]<<":"<<Prev[i]+1<<"\t\t";
 		}
 	}
-	char* cstr = new char [s.str().length()+1];
-	strcpy(cstr, s.str().c_str());
+	char* cstr = new char [ss.str().length()+1];
+	strcpy(cstr, ss.str().c_str());
 	return cstr;	
 }
 
-void initialize_cost(int s){
+void initialize_cost(){
 	for(int i=0;i<SIZE;i++){
-		Cost[i] = Adj[s-1][i];
+		Cost[i] = Adj[START][i];
 		if(Cost[i]==NP)
 			Prev[i] = UNDEF;
 		else
-			Prev[i] = s;
+			Prev[i] = START;
 	}
 }
 
@@ -74,7 +75,7 @@ int find_min(){
 	int n=-1; //min index
 	int val=-1; //min val
 	for(int i=0;i<SIZE;i++){
-		if(!member(i+1)){
+		if(!member(i)){
 			if(Cost[i]<val || val==-1){
 				n=i;
 				val=Cost[i];
@@ -91,7 +92,7 @@ int min(int d1, int d2, int c2,int v, int w){
 		return d1;
 	}
 	if ((d2+c2)<d1){
-		Prev[v] = w+1;
+		Prev[v] = w;
 		return d2+c2;
 	}
 	return d1;
@@ -100,27 +101,63 @@ int min(int d1, int d2, int c2,int v, int w){
 
 void Dijksta(){
 	s.clear();
-	initialize_cost(START);
+	initialize_cost();
 	s.insert(START);
-	cout<<"Iteration\tw\tD[2]:P[2]\tD[3]:P[3]\tD[4]:P[4]\tD[5]:P[5]\tD[6]:P[6]\n";
+	cout<<"Iteration\tw\t";
+	for(int i=0;i<SIZE;i++){
+		if(i!=START)
+			cout<<"D["<<i+1<<"]:P["<<i+1<<"]\t";
+	}
+	cout<<endl;
 	printf("init\t\t-\t%s\n",d_p_string());
 	for(int i=0;i<SIZE-1;i++){
 		int w = find_min();
 		for(int v=0;v<SIZE;v++){
-			if(!member(v+1)){
+			if(!member(v)){
 				Cost[v] = min(Cost[v],Cost[w],Adj[w][v], v, w);
 			}
 		}
 		printf("%d\t\t%d\t%s\n",i,w+1,d_p_string());
-		s.insert(w+1);
+		s.insert(w);
 	}
 	
 }
 
+void print_shortest_paths(){
+	cout<<"Shortest paths from "<<START+1<<":\n";
+	int p;
+	stack<int> path_stack;
+	for(int i=0;i<SIZE;i++){
+		if(i!=START && Prev[i]!=UNDEF){
+			p=Prev[i];
+			ostringstream ss;
+			path_stack.push(i);
+			path_stack.push(p);
+			while(p!=START){
+				p = Prev[p];
+				path_stack.push(p);
+			}
+			//Pop the top off the stack to start the order listing
+			cout<<path_stack.top()+1;
+			path_stack.pop();
+			while(!path_stack.empty()){
+				cout<<"-"<<path_stack.top()+1;
+				path_stack.pop();	
+			}
+			cout<<endl;
+			
+		}
+	}
+	cout<<endl;
+
+}
+
 int main(){
 	print_initial_adj();
-   Dijksta();
-	
+	for (START=0;START<SIZE;START++){
+	   Dijksta();
+		print_shortest_paths();	
+	}
 	return 0;
 }
 
