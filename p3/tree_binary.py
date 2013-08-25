@@ -68,3 +68,16 @@ def MEMBER(x, root):
         return MEMBER(x, RIGHT_CHILD(root))
     else:
         return false
+
+def DELETEMIN (root):
+    if LEFT_CHILD(root) != None:
+        if LEFT_CHILD(LEFT_CHILD(root)) == None:
+           root.left_child = RIGHT_CHILD(LEFT_CHILD(root))
+        return root 
+    else:
+        if RIGHT_CHILD(root) != None:
+            root = RIGHT_CHILD(root)
+        else:
+            root = None
+
+    return root
