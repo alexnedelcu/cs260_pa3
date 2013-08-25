@@ -34,3 +34,11 @@ class Dictionary:
 				if self.rehash(bucket) == 0:
 					looped_through = True
 				bucket = self.rehash(bucket)
+	
+	def MEMBER(self, x):
+		bucket = 0
+		while self.hashtable[bucket] != x:
+			if self.rehash(bucket) == 0 or self.hashtable[bucket] == x:
+				return False
+			bucket = self.rehash(bucket)
+		return True
