@@ -1,7 +1,7 @@
 class Tree(object):
     def __init__(self):
         self.left_child = None
-        self.right_sibling = None
+        self.right_child = None
         self.data = None
         self.root = None
     
@@ -13,7 +13,7 @@ def LEFT_CHILD(node):
     return node.left_child
     
 def RIGHT_CHILD(node):
-    return node.left_child.right_sibling
+    return node.right_child
     
 def LABEL(node):
     if node:
@@ -29,11 +29,42 @@ def CREATE(*args):
     node.data = args[0]
     node.left_child = args[1]
     node.left_child.root = node
-    node.left_child.right_sibling = args[2]    
-    node.left_child.right_sibling.root = node
-
+    node.right_child = args[2]    
+    node.right_child.root = node
     return node
 
 def MAKENULL():
     node = Tree()
     return node
+
+def INSERT(x, root):
+    if root == None:
+        n = MAKENULL()
+        n.data = x
+	n.root = root
+        return n
+    elif x < root.data:
+        if LEFT_CHILD(root) == None:
+            root.left_child = INSERT(x, LEFT_CHILD(root)) 
+            return root.left_child
+        return INSERT(x, LEFT_CHILD(root)) 
+    elif x > root.data:
+        if RIGHT_CHILD(root) == None:
+            root.right_child = INSERT(x, RIGHT_CHILD(root))
+            return root.right_child
+        return INSERT(x, RIGHT_CHILD(root))
+
+    return false
+
+
+def MEMBER(x, root):
+    if root == None:
+        return false
+    elif x == root.data:
+        return root
+    elif x < root.data:
+        return MEMBER(x, LEFT_CHILD(root))
+    elif x > root.data:
+        return MEMBER(x, RIGHT_CHILD(root))
+    else:
+        return false
