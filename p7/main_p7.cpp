@@ -89,9 +89,9 @@ void print_cost_prev(){
 	for(int i=0;i<SIZE;i++){
 		for(int j=0;j<SIZE;j++){
 			if (Cost[i][j]!=NP)
-				cout<<Cost[i][j]<<":"<<Prev[i][j]+1<<"\t";
+				cout<<Cost[i][j]<<":"<<Prev[i][j]+1<<"\t\t";
 			else
-				cout<<"-:-\t";
+				cout<<"-:-\t\t";
 		}
 		cout<<endl;
 	}
