@@ -126,3 +126,8 @@ def IS_LEFT_CHILD(x) :
         if x == LEFT_CHILD(PARENT(x)):
           return True
     return False
+
+def PRINT(root):
+    if root == None:
+        return "NONE"
+    return str(LABEL(root)) + ", ["+PRINT(LEFT_CHILD(root))+", "+PRINT(RIGHT_CHILD(root))+"]"
