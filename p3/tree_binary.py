@@ -92,26 +92,17 @@ def DELETEMIN (root):
 def DELETE (x, root):
     if root != None:
         if x < root.data:
-           DELETE(x, LEFT_CHILD(root))
-           print(1)
+           root.left_child = DELETE(x, LEFT_CHILD(root))
         elif x > root.data:
-           DELETE(x, RIGHT_CHILD(root))
-           print(2)
+           root.right_child = DELETE(x, RIGHT_CHILD(root))
         elif LEFT_CHILD(root) == None and RIGHT_CHILD(root) == None:
-           SET_NODE(root, None)
-           print(LABEL(LEFT_CHILD(PARENT(root))))
-           print(LABEL(RIGHT_CHILD(PARENT(root))))
-           print(3)
+           root = SET_NODE(root, None)
         elif LEFT_CHILD(root) == None:
-           SET_NODE(root, RIGHT_CHILD(root))
-           print(4)
+           root = SET_NODE(root, RIGHT_CHILD(root))
         elif RIGHT_CHILD(root) == None:
-           SET_NODE(root, LEFT_CHILD(root))
-           print(5)
+           root = SET_NODE(root, LEFT_CHILD(root))
         else:
-           SET_NODE(root, DELETEMIN(RIGHT_CHILD(root)[0]))
-#           root.data = DELETEMIN(RIGHT_CHILD(root))[1]
-           print(6)
+           root.data = DELETEMIN(RIGHT_CHILD(root))[1]
     return root
 
 def SET_NODE (x, new):
@@ -119,7 +110,7 @@ def SET_NODE (x, new):
         PARENT(x).right_child = new
     elif IS_LEFT_CHILD(x):
         PARENT(x).left_child = new
-    return x
+    return new 
  
 def IS_RIGHT_CHILD(x) :
     if x != None:

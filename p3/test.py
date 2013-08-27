@@ -13,7 +13,7 @@ INSERT(12, tree)
 INSERT(18, tree)
 INSERT(15, tree)
 
-tree = DELETE(15, tree)
+tree = DELETE(18, tree)
 # delete the first 7 minimum values (the entire tree)
 for i in range(0, 7):
   dm = DELETEMIN(tree)
@@ -30,4 +30,3 @@ INSERT(12, tree)
 INSERT(18, tree)
 INSERT(15, tree)
 
-#DELETE(5, tree)
