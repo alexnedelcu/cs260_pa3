@@ -56,7 +56,7 @@ def INSERT(x, root):
             return root.right_child
         return INSERT(x, RIGHT_CHILD(root))
 
-    return false
+    return False
 
 
 def MEMBER(x, root):
