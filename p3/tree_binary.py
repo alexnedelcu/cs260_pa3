@@ -10,9 +10,11 @@ def PARENT(node):
     return node.root
 
 def LEFT_CHILD(node):
+    if node == None: return None
     return node.left_child
     
 def RIGHT_CHILD(node):
+    if node == None: return None
     return node.right_child
     
 def LABEL(node):
@@ -72,12 +74,64 @@ def MEMBER(x, root):
 def DELETEMIN (root):
     if LEFT_CHILD(root) != None:
         if LEFT_CHILD(LEFT_CHILD(root)) == None:
+           deletemin = LABEL(LEFT_CHILD(root))
            root.left_child = RIGHT_CHILD(LEFT_CHILD(root))
-        return root 
+        else:
+           return DELETEMIN(RIGHT_CHILD(LEFT_CHILD(root)))
     else:
         if RIGHT_CHILD(root) != None:
+            deletemin = LABEL(root)
             root = RIGHT_CHILD(root)
         else:
+            deletemin = LABEL(root)
             root = None
 
+    return [root, deletemin]
+
+
+def DELETE (x, root):
+    if root != None:
+        if x < root.data:
+           DELETE(x, LEFT_CHILD(root))
+           print(1)
+        elif x > root.data:
+           DELETE(x, RIGHT_CHILD(root))
+           print(2)
+        elif LEFT_CHILD(root) == None and RIGHT_CHILD(root) == None:
+           SET_NODE(root, None)
+           print(LABEL(LEFT_CHILD(PARENT(root))))
+           print(LABEL(RIGHT_CHILD(PARENT(root))))
+           print(3)
+        elif LEFT_CHILD(root) == None:
+           SET_NODE(root, RIGHT_CHILD(root))
+           print(4)
+        elif RIGHT_CHILD(root) == None:
+           SET_NODE(root, LEFT_CHILD(root))
+           print(5)
+        else:
+           SET_NODE(root, DELETEMIN(RIGHT_CHILD(root)[0]))
+#           root.data = DELETEMIN(RIGHT_CHILD(root))[1]
+           print(6)
     return root
+
+def SET_NODE (x, new):
+    if IS_RIGHT_CHILD(x):
+        PARENT(x).right_child = new
+    elif IS_LEFT_CHILD(x):
+        PARENT(x).left_child = new
+    return x
+ 
+def IS_RIGHT_CHILD(x) :
+    if x != None:
+      if PARENT(x) != None:
+        if x == RIGHT_CHILD(PARENT(x)):
+          return True
+    return False
+
+ 
+def IS_LEFT_CHILD(x) :
+    if x != None:
+      if PARENT(x) != None:
+        if x == LEFT_CHILD(PARENT(x)):
+          return True
+    return False
