@@ -10,9 +10,11 @@ def PARENT(node):
     return node.root
 
 def LEFT_CHILD(node):
+    if node == None: return None
     return node.left_child
     
 def RIGHT_CHILD(node):
+    if node == None: return None
     return node.right_child
     
 def LABEL(node):
@@ -54,7 +56,7 @@ def INSERT(x, root):
             return root.right_child
         return INSERT(x, RIGHT_CHILD(root))
 
-    return false
+    return False
 
 
 def MEMBER(x, root):
@@ -68,3 +70,64 @@ def MEMBER(x, root):
         return MEMBER(x, RIGHT_CHILD(root))
     else:
         return false
+
+def DELETEMIN (root):
+    if LEFT_CHILD(root) != None:
+        if LEFT_CHILD(LEFT_CHILD(root)) == None:
+           deletemin = LABEL(LEFT_CHILD(root))
+           root.left_child = RIGHT_CHILD(LEFT_CHILD(root))
+        else:
+           return DELETEMIN(RIGHT_CHILD(LEFT_CHILD(root)))
+    else:
+        if RIGHT_CHILD(root) != None:
+            deletemin = LABEL(root)
+            root = RIGHT_CHILD(root)
+        else:
+            deletemin = LABEL(root)
+            root = None
+
+    return [root, deletemin]
+
+
+def DELETE (x, root):
+    if root != None:
+        if x < root.data:
+           root.left_child = DELETE(x, LEFT_CHILD(root))
+        elif x > root.data:
+           root.right_child = DELETE(x, RIGHT_CHILD(root))
+        elif LEFT_CHILD(root) == None and RIGHT_CHILD(root) == None:
+           root = SET_NODE(root, None)
+        elif LEFT_CHILD(root) == None:
+           root = SET_NODE(root, RIGHT_CHILD(root))
+        elif RIGHT_CHILD(root) == None:
+           root = SET_NODE(root, LEFT_CHILD(root))
+        else:
+           root.data = DELETEMIN(RIGHT_CHILD(root))[1]
+    return root
+
+def SET_NODE (x, new):
+    if IS_RIGHT_CHILD(x):
+        PARENT(x).right_child = new
+    elif IS_LEFT_CHILD(x):
+        PARENT(x).left_child = new
+    return new 
+ 
+def IS_RIGHT_CHILD(x) :
+    if x != None:
+      if PARENT(x) != None:
+        if x == RIGHT_CHILD(PARENT(x)):
+          return True
+    return False
+
+ 
+def IS_LEFT_CHILD(x) :
+    if x != None:
+      if PARENT(x) != None:
+        if x == LEFT_CHILD(PARENT(x)):
+          return True
+    return False
+
+def PRINT(root):
+    if root == None:
+        return "NONE"
+    return str(LABEL(root)) + ", ["+PRINT(LEFT_CHILD(root))+", "+PRINT(RIGHT_CHILD(root))+"]"

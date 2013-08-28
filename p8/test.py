@@ -4,16 +4,18 @@ def dfs(x, graph, mark):
 	for vertex in graph[x]:
 		if mark[vertex] == "unvisited":
 			dfs(vertex, graph, mark)
+		else:
+			continue
 		return x
 			
 
 
-graph = {'A':['B','C'],
-			'B':['D'],
-			'C':['E'],
-			'D':['C'],
-			'E':['F'],
-			'F':['C']}
+graph = {'A':['B','D','F'],
+			'B':['C','F'],
+			'C':['D'],
+			'D':['B'],
+			'E':['D','F'],
+			'F':['D']}
 
 mark={}
 for item in graph:
