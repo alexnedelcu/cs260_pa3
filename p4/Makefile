@@ -13,5 +13,4 @@ LESS=less
 $(MYPROGRAM): $(SOURCE)
 
 	$(PY)  $(SOURCE) 
-	$(LESS)  $(OUTPUT)
 

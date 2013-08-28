@@ -29,9 +29,3 @@ class Trie (object):
     if pathAdded :
       self.size_words = self.size_words + 1
 
-t = Trie()
-t.addWord("blah") 
-t.addWord("blahs") 
-t.addWord("blshs") 
-print("Number of nodes: ", t.size_nodes)
-print("Number of distinct words: ", t.size_words)
