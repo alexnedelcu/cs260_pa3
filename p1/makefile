@@ -16,12 +16,16 @@ default: build
 
 test: build run
 
-build: main_p1.cpp dict.cpp
-	${CC} -g -o p1 dict.cpp main_p1.cpp
+build: main_p1_ints.cpp main_p1_chars.cpp dict.cpp
+	${CC} -g -o p1_ints dict.cpp main_p1_ints.cpp
+	${CC} -g -o p1_chars dict.cpp main_p1_chars.cpp
 
 run:
-	./p1
+	@echo "Running tests with integers..."
+	./p1_ints
+	@echo "Running tests with characters..."
+	./p1_chars
 
 clean:
-	rm -f p1 *.o
+	rm -f p1_ints p1_chars *.o
 
