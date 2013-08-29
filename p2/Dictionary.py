@@ -12,7 +12,9 @@ class Dictionary:
 	def INSERT(self, x):
 		bucket = 0
 		looped_through = False
+		count = 0
 		while looped_through == False:
+			count = count + 1
 			if self.hashtable[bucket] == x:
 				print "{} is already in Dictionary".format(x)
 				return
@@ -23,18 +25,21 @@ class Dictionary:
 				looped_through=True
 				print "INSERT FAILED: Table is full"
 			bucket = self.rehash(bucket)
+		
+
 
 	def DELETE(self, x):
 		bucket = 0
 		looped_through = False
+		count = 0
 		while looped_through == False:
+			count = count + 1
 			if self.hashtable[bucket] == x:
 				self.hashtable[bucket] = None
 			else:
 				if self.rehash(bucket) == 0:
 					looped_through = True
 				bucket = self.rehash(bucket)
-	
 	def MEMBER(self, x):
 		bucket = 0
 		while self.hashtable[bucket] != x:

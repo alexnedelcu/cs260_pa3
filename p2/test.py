@@ -1,20 +1,12 @@
 from Dictionary import *
 
-dictionary=Dictionary(3)
+dictionary=Dictionary(10000)
 
+for x in xrange(0,5000):
+	dictionary.INSERT(x)
 
-dictionary.INSERT("A")
-dictionary.INSERT("A")
-dictionary.INSERT("Z")
-dictionary.INSERT("T")
-dictionary.INSERT("B")
-print "Dictionary before Deleting A:"
-for item in dictionary.hashtable:
-	print item, dictionary.hashtable[item]
-dictionary.DELETE("A")
-print "Dictionary after Deleting A:"
-for item in dictionary.hashtable:
-	print item, dictionary.hashtable[item]
+dictionary.DELETE(5000)
 
-print "MEMBER(A)", dictionary.MEMBER("A")
-print "MEMBER(T)", dictionary.MEMBER("T")
+print "MEMBER(298)", dictionary.MEMBER(298)
+print "MEMBER(4852)", dictionary.MEMBER(4852)
+print "MEMBER(100000)", dictionary.MEMBER(100000)
