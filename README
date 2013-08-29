@@ -58,7 +58,16 @@ PROGRAM OUTPUT
 	make demo:
 		Preforms functionality tests on dictionaries containing ints and chars
 		and outputs the operations and results to STDOUT.
-  P2:
+  P2: make
+		//loops through 5000 times adding an int to a hashtable of 5000
+		prints MEMBER(4999) true
+		deletes member at 4999
+		prints MEMBER(4999) false
+
+		prints MEMBER(253) true
+		prints MEMBER(4832) true
+		prints MEMBER(100000) false
+		
   P3: The output is the comparison between the experimental value of the average path length from the root to any node, and the value of log2(n), where n is the number of nodes in the tree. They grow at the same pace.
   P4: The output is 2 size, which come from the provided input text file:
           - the size of the tree that measures the number of nodes
@@ -117,4 +126,7 @@ PROGRAM OUTPUT
 		Shortest paths from 6:
 
   P8:
+	dfs starting at A:
+	A, B, C, D, E, F
+
 
