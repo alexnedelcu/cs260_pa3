@@ -59,7 +59,15 @@ probed, just like with INSERT. Since there are N/B items in each bucket on
 average, it follows that calling DELETE on a non-existant item would require N/B
 probes on average.
 
+Problem 2:
 
+Dictionary Insert-
+	Tested at 5000, expected nodes touched = (1+1/(1-a)^2)/2 (a=4999/5000)
+=2500.5, calculated value = 5000. This error could come from running through
+the hashtable an extra time when making sure the item is not in there.
+
+Dictionary Deletion-
+	Tested at 5000- expected value = 5000, calculated value = 5000
 
 ================================================================
 PROBLEM 3:

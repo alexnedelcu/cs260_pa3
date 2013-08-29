@@ -20,7 +20,7 @@ COMPILATION AND EXECUTION:
 
 
   P2
-
+	make		//compiles code and runs test.py
 
   P3, P4: run 'make test' command in any of these directories
 
@@ -34,7 +34,7 @@ COMPILATION AND EXECUTION:
 
 
   P8
-
+	make		//compiles and runs test.py which contains dfs
 
 PROGRAM OUTPUT
 
