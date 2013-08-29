@@ -1,17 +1,10 @@
-<<<<<<< HEAD
+========================================================
+Problem 1:
+========================================================
 
 
-PROBLEM 3:
 
-In order to calculate the average path from the root node to any other node, I created a function that searches all possible paths and counts their length.
 
-The average was calculated by summing all the path lengths and dividing to the number of paths (which is the same as the total number of nodes in the tree)
-
-The program output is in the file "average_path.txt". It reates trees with the sizes between 100 and 250 nodes. Every iteration creates a new trees which adds random values until they reach the specified size. Finally, the experimental value is calculated which represents the average length of the paths from the root to any node.
-
-Compared to log2(n), we could observe that they grow at the same pace. Differences between the experimental value and the log2(n) are given by having the trees built unbalanced. Since log2(n) is supposed to be the worst case scenario, it is usually a little bit greater thatn the experimental value.
-=======
-P1:
 Data Collected:
 _____________TEST CONDITIONS____________
 N: 50000
@@ -65,4 +58,18 @@ dictionary, the DELETE operation requies all items in the bucket to be
 probed, just like with INSERT. Since there are N/B items in each bucket on 
 average, it follows that calling DELETE on a non-existant item would require N/B
 probes on average.
->>>>>>> 572ea122c2f25ced2e73994614045e997f304e9e
+
+
+
+================================================================
+PROBLEM 3:
+================================================================
+
+
+In order to calculate the average path from the root node to any other node, I created a function that searches all possible paths and counts their length.
+
+The average was calculated by summing all the path lengths and dividing to the number of paths (which is the same as the total number of nodes in the tree)
+
+The program output is in the file "average_path.txt". It reates trees with the sizes between 100 and 250 nodes. Every iteration creates a new trees which adds random values until they reach the specified size. Finally, the experimental value is calculated which represents the average length of the paths from the root to any node.
+
+Compared to log2(n), we could observe that they grow at the same pace. Differences between the experimental value and the log2(n) are given by having the trees built unbalanced. Since log2(n) is supposed to be the worst case scenario, it is usually a little bit greater thatn the experimental value.
