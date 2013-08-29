@@ -12,33 +12,32 @@ UNFINISHED: NONE
 
 COMPILATION AND EXECUTION: 
 
-P1
+  P1
 
 
-P2
+  P2
 
 
-P3
+  P3, P4: run 'make test' command in any of these directories
 
 
-P4
+  P5
 
 
-P5
+  P7
 
 
-P7
-
-
-P8
+  P8
 
 
 PROGRAM OUTPUT
 
   P1:
   P2:
-  P3:
-  P4:
+  P3: The output is the comparison between the experimental value of the average path length from the root to any node, and the value of log2(n), where n is the number of nodes in the tree. They grow at the same pace.
+  P4: The output is 2 size, which come from the provided input text file:
+          - the size of the tree that measures the number of nodes
+          - the number of words the trie stores in the tree
   P5:
   P7:
   P8:
