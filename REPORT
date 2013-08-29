@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 PROBLEM 3:
@@ -9,3 +10,59 @@ The average was calculated by summing all the path lengths and dividing to the n
 The program output is in the file "average_path.txt". It reates trees with the sizes between 100 and 250 nodes. Every iteration creates a new trees which adds random values until they reach the specified size. Finally, the experimental value is calculated which represents the average length of the paths from the root to any node.
 
 Compared to log2(n), we could observe that they grow at the same pace. Differences between the experimental value and the log2(n) are given by having the trees built unbalanced. Since log2(n) is supposed to be the worst case scenario, it is usually a little bit greater thatn the experimental value.
+=======
+P1:
+Data Collected:
+_____________TEST CONDITIONS____________
+N: 50000
+B: 5
+_________________RESULTS________________
+Average Insert of New Item :            10000.3
+Average Insert of Existing Item:        5043.36
+Average Successful Delete :             5023.13
+Average Unsuccessful Delete :           9999.47
+
+_____________TEST CONDITIONS____________
+N: 10000
+B: 5
+_________________RESULTS________________
+Average Insert of New Item :            2000.93
+Average Insert of Existing Item:        999.475
+Average Successful Delete :             1004.75
+Average Unsuccessful Delete :           1999.87
+
+_____________TEST CONDITIONS____________
+N: 5000
+B: 5
+_________________RESULTS________________
+Average Insert of New Item :            1000.51
+Average Insert of Existing Item:        503.11
+Average Successful Delete :             501.208
+Average Unsuccessful Delete :           999.157
+
+Conclusions:
+From the experiments preformed, it is apparent that INSERT requires a number
+of probes equal to N/B on average. This is because the MEMBER function has to
+look at all the items in a given bucket. On average, the number of items per
+bucket is N/B. So, it follows that N/B probes are required for each
+successful INSERT.
+
+When insert is called with an item that is already present, the MEMBER
+function will only scan the bucket until the item is reached. Since there
+are N/B items per bucket on average, the MEMBER function only needs to probe
+N/2B items until it finds the item. Once the item is found, the insert
+operation is done.
+
+It is also clear that deletions require a number of probes equal to N/2B on
+average. This is because the DELETE operation only scans the bucket until it
+finds the item to be deleted. Thus, the time spent on a DELETE operation is
+proportional to the position of the item in the list. Since there are approximately
+N/B items in each bucket, the "average" position will be N/2B. So, it should take 
+N/2B probes on average to find the item to be deleted.
+
+In contrast, when deletion is called on an item the is NOT in the
+dictionary, the DELETE operation requies all items in the bucket to be
+probed, just like with INSERT. Since there are N/B items in each bucket on 
+average, it follows that calling DELETE on a non-existant item would require N/B
+probes on average.
+>>>>>>> 572ea122c2f25ced2e73994614045e997f304e9e
