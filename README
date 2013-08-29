@@ -1,43 +1,39 @@
-GROUP ID: 5??
+GROUP ID: 5
 
-NAMES: Ioan Alexandru Nedelcu, David Werner, Sam
+NAMES: Ioan Alexandru Nedelcu, David Werner, Samuel Alexander Kerr
 
-CONTENTS: 1, 5, 7
+CONTENTS: Problems 1, 2, 3, 4, 5, 7, 8
 
-COMPLETE: 1, 5, 7
+COMPLETE: ALL PROBLEMS ARE COMPLETE!
 
-NOT COMPLETE: ?
+NOT COMPLETE: Problems 6, 9 
 
-UNFINISHED: ?
+UNFINISHED: NONE
 
 COMPILATION AND EXECUTION: 
 
-P1
-make build 				//compile test code
-make test				//preform experiments in p1_timing
-make demo				//demo functionality of dict with ints and chars
-make clean				//clean compiled files
-
-P2
+  P1
+    make build 				//compile test code
+    make test				//preform experiments in p1_timing
+    make demo				//demo functionality of dict with ints and chars
+    make clean				//clean compiled files
 
 
-P3
+  P2
 
 
-P4
+  P3, P4: run 'make test' command in any of these directories
+
+  P5
+    make build 				//compile test code
+    make test				//runs test code
+    make clean				//clean compiled files
 
 
-P5
-make build 				//compile test code
-make test				//runs test code
-make clean				//clean compiled files
+  P7
 
-P7
-make build 				//compile test code
-make test				//runs test code
-make clean				//clean compiled files
 
-P8
+  P8
 
 
 PROGRAM OUTPUT
@@ -63,8 +59,10 @@ PROGRAM OUTPUT
 		Preforms functionality tests on dictionaries containing ints and chars
 		and outputs the operations and results to STDOUT.
   P2:
-  P3:
-  P4:
+  P3: The output is the comparison between the experimental value of the average path length from the root to any node, and the value of log2(n), where n is the number of nodes in the tree. They grow at the same pace.
+  P4: The output is 2 size, which come from the provided input text file:
+          - the size of the tree that measures the number of nodes
+          - the number of words the trie stores in the tree
   P5:
 	The test code performs Dijksta's algorithm on all nodes in the graph and
 	prints out the information for each iteration as well as reconstructs the
@@ -120,12 +118,3 @@ PROGRAM OUTPUT
 
   P8:
 
-P1:20) Dave
-P2:20) Sam
-P3:20) ?All
-P4:20) ?All
-P5:10) Dave
-P6:30) Alex
-P7:10) Dave
-P8:10) Sam
-P9:30) ? 
