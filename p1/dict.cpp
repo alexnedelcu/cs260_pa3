@@ -4,6 +4,15 @@
 using namespace std;
 #define NUM_BUCKETS 5
 
+struct probe_result{
+	int probe_count;
+	bool result;
+	probe_result(){
+		probe_count=0;
+		result=false;
+	}
+};
+
 template<typename X>
 struct pNode{
 	X data;
@@ -20,11 +29,12 @@ class DICT_OPEN{
 	private:
 		pNode<X> *heads[NUM_BUCKETS];
 		int hash(int x){
+			if (x<0)
+				x=-x;
 			return x%NUM_BUCKETS;
 		}
 		int hash(char c){
-			cout<<"Hash of char not implemented... returning 0...\n";
-			return 0;
+			return c%NUM_BUCKETS;
 		}	
 	public:
 		DICT_OPEN(){
@@ -32,53 +42,64 @@ class DICT_OPEN{
 				heads[i] = NULL;
 			}
 		}
-		bool INSERT(X item){
-			if (!MEMBER(item)){
+		probe_result INSERT(X item){
+			probe_result p;
+			p = MEMBER(item);
+			if (!p.result){//Member probe was false
 				int bucket = hash(item);
 				pNode<X> *old_head = heads[bucket];
 				heads[bucket] = new pNode<X>();
 				heads[bucket]->data = item;
 				heads[bucket]->next = old_head;
-				return true;
+				p.result = true;
+			}else{
+				p.result = false;
 			}
-			//x is already a member, return false
-			return false;
+			return p;
 		}
 
-		bool DELETE(X item){
+		probe_result DELETE(X item){
+			probe_result p;
 			int bucket = hash(item);
+			p.probe_count = 1;
 			if (heads[bucket]!=NULL){
 				if(heads[bucket]->data == item){
 					//Item is the first in the list
 					heads[bucket] = heads[bucket]->next;
-					return true;
+					p.result = true;
+					return p;
 				}
 				//Otherwise, continue to search
 				pNode<X> *previous = heads[bucket];
 				while (previous->next!=NULL){
 					//The next item is what we are looking for
+					p.probe_count++;
 					if (previous->next->data == item){
 						//Remove item
 						previous->next = previous->next->next;
-						return true;
+						p.result = true;
+						return p;
 					}
 					//Check the next item
 					previous = previous->next;
 				}
-
-
 			}
-			return false;
+			return p;
 		}
-		bool MEMBER(X item){
+		probe_result MEMBER(X item){
+			probe_result p;
 			int bucket = hash(item);
 			pNode<X> *node = heads[bucket];
+			p.probe_count = 1;//Initial probe
 			while (node!=NULL){
-				if(node->data==item)
-					return true;
+				if(node->data==item){
+					p.result = true;
+					return p;
+				}
 				node=node->next;
+				p.probe_count++;
 			}
-			return false;
+			return p;
 		}
 		void MAKENULL(){
 			for (int i=0;i<NUM_BUCKETS;i++){
@@ -98,81 +119,3 @@ class DICT_OPEN{
 
 		}
 };
-/*
-
-   ~pList(){
-      MAKENULL();
-   }
-
-   pNode<X>* FIRST(){
-      return _head;
-
-   }
-
-
-   X RETRIEVE(pNode<X> *p){
-      return p->data;
-   }
-
-   pNode<X>* LOCATE(X item){
-       pNode<X> *q = _head;
-       while(q->next!=NULL){
-         if(q->next->data==item){
-            return q;
-         }
-         q=q->next;
-      }
-      cout<<"Could not LOCATE value:"<<item<<"... returning NULL...\n";
-      return  (pNode<X>*) NULL;
-   }
-
-   pNode<X>* END(){
-      pNode<X> *q = _head;
-      while(q->next!=NULL){
-         q=q->next;
-      }
-      return q;
-   }
-
-   pNode<X>* NEXT(pNode<X> *p){
-      return p->next;
-   }
-
-   pNode<X>* PREVIOUS(pNode<X> *p){
-       pNode<X> *q = _head;
-       while(q->next!=NULL){
-         if(q->next==p){
-            return q;
-         }
-         q=q->next;
-       }
-       cout<<"PREVIOUS called with invalid pointer... returning NULL...\n";
-       return  (pNode<X>*) NULL;
-   }
-
-
-   void INSERT(X item, pNode<X> *position){
-      pNode<X> *tmp = position->next;
-      pNode<X> *new_node = new pNode<X>();
-      position->next=new_node;
-      new_node->data=item;
-      new_node->next=tmp;
-   }
-
-   void DELETE(pNode<X>* p){
-      p->next = p->next->next;
-   }
-
-   void MAKENULL(){
-      if(_head->next!=NULL){
-         pNode<X>* iter = _head->next;
-         pNode<X>* next;
-         do{
-            next = iter->next;
-            delete iter;
-            iter = next;
-         }while (next!=NULL);
-      }
-      _head->next=NULL;
-   }
-*/
