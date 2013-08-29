@@ -31,6 +31,9 @@ COMPILATION AND EXECUTION:
 
 
   P7
+    make build 			//compile test code
+    make test				//runs test code
+    make clean				//clean compiled files
 
 
   P8
