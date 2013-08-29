@@ -9,7 +9,8 @@ DICT_OPEN<int> dict;
 #define ITEM_MAX  100000
 #define NUM_TRIALS 10000
 
-int insert_probes=0;
+int success_insert_probes=0;
+int fail_insert_probes=0;
 int success_delete_probes=0;
 int fail_delete_probes=0;
 
@@ -30,7 +31,18 @@ void INSERT_NEW_ITEM_TIMED(){
 			p = dict.INSERT(i);
 		}
 		dict.DELETE(i); //remove the item
-		insert_probes+=p.probe_count;
+		success_insert_probes+=p.probe_count;
+}
+
+void INSERT_EXISTING_ITEM_TIMED(){
+		int i = rand()%ITEM_MAX;
+		probe_result p = dict.INSERT(i);
+		while(p.result){	//Keep inserting until the item is already present
+			dict.DELETE(i);
+			i = rand()%ITEM_MAX;
+			p = dict.INSERT(i);
+		}
+		fail_insert_probes+=p.probe_count;
 }
 
 void DELETE_ITEM_TIMED(){
@@ -68,6 +80,10 @@ int main(){
 	for (int i=0;i<NUM_TRIALS;i++){
 		INSERT_NEW_ITEM_TIMED();
 	}
+	cout<<"Performing "<<NUM_TRIALS<<" random inserts of existing items and tallying # of probes.\n";
+	for (int i=0;i<NUM_TRIALS;i++){
+		INSERT_EXISTING_ITEM_TIMED();
+	}
 	cout<<"Performing "<<NUM_TRIALS<<" random deletes and tallying # of probes.\n";
 	for (int i=0;i<NUM_TRIALS;i++){
 		DELETE_ITEM_TIMED();
@@ -81,9 +97,10 @@ int main(){
 	cout<<"N: "<<NUM_ITEMS<<endl;
 	cout<<"B: 5\n";
 	cout<<"_________________RESULTS________________\n";
-	cout<<"Average Insert :\t\t"<<(double)insert_probes/NUM_TRIALS<<endl;
-	cout<<"Average Successful Delete :\t"<<(double)success_delete_probes/NUM_TRIALS<<endl;
-	cout<<"Average Unsuccessful Delete :\t"<<(double)fail_delete_probes/NUM_TRIALS<<endl;
+	cout<<"Average Insert of New Item :\t\t"<<(double)success_insert_probes/NUM_TRIALS<<endl;
+	cout<<"Average Insert of Existing Item:\t"<<(double)fail_insert_probes/NUM_TRIALS<<endl;
+	cout<<"Average Successful Delete :\t\t"<<(double)success_delete_probes/NUM_TRIALS<<endl;
+	cout<<"Average Unsuccessful Delete :\t\t"<<(double)fail_delete_probes/NUM_TRIALS<<endl;
 	//probe_result p = dict.INSERT(i);
 	//probe_result p = dict.DELETE(i);
 	//probe_result p = dict.MEMBER(i);
